@@ -1,0 +1,130 @@
+[
+    {
+        "id": "877026fe1bebac18",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c5fbde6304311bf7",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "mqtt.tago.io",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "069b94609b1d37c9",
+        "type": "serial-port",
+        "serialport": "COM5",
+        "serialbaud": "57600",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "0546961a9ff80441",
+        "type": "serial in",
+        "z": "877026fe1bebac18",
+        "name": "",
+        "serial": "069b94609b1d37c9",
+        "x": 110,
+        "y": 200,
+        "wires": [
+            [
+                "46b5be48db381d8f"
+            ]
+        ]
+    },
+    {
+        "id": "e9df29269ca8967e",
+        "type": "debug",
+        "z": "877026fe1bebac18",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "7dab616896ec2149",
+        "type": "mqtt out",
+        "z": "877026fe1bebac18",
+        "name": "Teste",
+        "topic": "tago/data/post",
+        "qos": "1",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "c5fbde6304311bf7",
+        "x": 650,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "46b5be48db381d8f",
+        "type": "function",
+        "z": "877026fe1bebac18",
+        "name": "function 1",
+        "func": "var distancia = msg.payload.toString()\n\nfunction apenasNumeros(string) \n{\n    var numsStr = string.replace(/[^0-9]/g,'');\n    return parseInt(numsStr);\n}\n\nvar m1 = {payload:\n    {\n        \"variable\": \"distancia\",\n        \"unit\": \"m\",\n        \"value\":  apenasNumeros(distancia)/100000\n    }\n}\n\nreturn m1;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 320,
+        "wires": [
+            [
+                "e9df29269ca8967e",
+                "7dab616896ec2149"
+            ]
+        ]
+    }
+]
